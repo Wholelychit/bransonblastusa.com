@@ -25,17 +25,35 @@ if (menuButton && siteNav) {
 }
 
 function addGuideLinks() {
-  addNavLink('/branson-lakes-area-guide.html', 'Lake Guide');
+  const guideLinks = [
+    { href: '/branson-lakes-area-guide.html', text: 'Lake Guide' },
+    { href: '/branson-west-visitor-guide.html', text: 'Branson West' },
+    { href: '/lake-taneycomo-fishing-trip.html', text: 'Taneycomo Fishing' },
+    { href: '/advertise-branson.html', text: 'Advertise' }
+  ];
+
+  guideLinks.forEach(({ href, text }) => addNavLink(href, text));
 
   const checklist = document.querySelector('.checklist ul');
-  if (!checklist || checklist.querySelector('a[href="/branson-lakes-area-guide.html"]')) return;
+  if (!checklist) return;
 
-  const item = document.createElement('li');
-  const link = document.createElement('a');
-  link.href = '/branson-lakes-area-guide.html';
-  link.textContent = 'Branson lakes area guide';
-  item.appendChild(link);
-  checklist.insertBefore(item, checklist.children[1] || null);
+  const checklistLinks = [
+    { href: '/branson-lakes-area-guide.html', text: 'Branson lakes area guide' },
+    { href: '/branson-west-visitor-guide.html', text: 'Branson West visitor guide' },
+    { href: '/lake-taneycomo-fishing-trip.html', text: 'Lake Taneycomo fishing trip guide' },
+    { href: '/advertise-branson.html', text: 'Local business visibility page' }
+  ];
+
+  checklistLinks.reverse().forEach(({ href, text }) => {
+    if (checklist.querySelector(`a[href="${href}"]`)) return;
+
+    const item = document.createElement('li');
+    const link = document.createElement('a');
+    link.href = href;
+    link.textContent = text;
+    item.appendChild(link);
+    checklist.insertBefore(item, checklist.children[1] || null);
+  });
 }
 
 function addNavLink(href, text) {
